@@ -71,7 +71,7 @@ df_all <- df_all %>%
   mutate(across(everything(), ~ifelse(. == "", NA, .)))
 
 #### Setting year cutoff if needed ####
-period_min <- 2012
+period_min <- 2021
 period_max <- 2024
 desired_period <- seq(period_min, period_max, by = 1)
 
@@ -92,7 +92,7 @@ source(here('R', 'wordcloud_keywords.R'))
 source(here('R', 'wordcloud_indexed_keywords.R'))
 
 #### Final Summary Table ####
-total_publications <- df_all %>% nrow()
+total_publications <- df_all %>% filter(year %in% desired_period) %>% nrow()
 total_papers <- df_all %>% filter(type != 'chapter') %>% nrow()
 total_chapters <- df_all %>% filter(type == 'chapter') %>% nrow()
 
