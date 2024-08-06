@@ -1,22 +1,15 @@
-#### Setting working directory (WD) ####
-setwd(dirname(rstudioapi::getActiveDocumentContext()$path)) # Sets WD to source location
-getwd() # Checks WD again
-.rs.restartR() # Restarts R session
-
 #### Loading packages ####
 pacman::p_load(plyr, ggthemes, tidyverse, here, readxl, ggsci, ggpmisc, ggforce, scales, lubridate, ggrepel, ggpubr)
 
 #### Defining function to read the latest version of a .CSV file ####
-source('/Users/moreiradc/Documents/R/utilities/reading_latest_version_excel.R')
-source('/Users/moreiradc/Documents/R/utilities/reading_latest_version_csv.R')
-source('/Users/moreiradc/Documents/R/utilities/getting_h-index_google_scholar.R')
+source(here('utils', 'getting_h-index_google_scholar.R'))
 
 #### Retrieving current h-index from Google Scholar ####
 h_index_scholar <- get_h_index_google("https://scholar.google.com/citations?user=4MTUwDgAAAAJ")
 
 #### Importing local data into the environment ####
-df_papers <- read_latest_csv(here('raw_data'), "sci_outuput_database\\.csv$")
-df_journals <- read_latest_csv(here('raw_data'), "journal_rankings\\.csv$")
+df_papers <- read_csv(here('raw_data', 'sci_outuput_database.csv'))
+df_journals <- read_csv(here('raw_data', 'journal_rankings.csv'))
 
 # Merging dataframes
 df_local <- merge(df_papers, df_journals, by = c("journal_abbr", 'journal'), all.x = T)
@@ -28,7 +21,7 @@ last_updated <- max(as.Date(df_local$last_updated_output, tryFormats = "%d-%m-%Y
                     na.rm = TRUE)
 
 #### Importing and Tidying Web of Science Data ####
-df_wos <- read_latest_excel(here('raw_data'), "wos_savedrecs\\.xls$", header = TRUE)
+df_wos <- read_excel(here('raw_data', 'wos_savedrecs.xls'))
 df_wos <- df_wos[,c(2,20,21,35,57,66)]
 
 # Renaming cols
@@ -49,7 +42,7 @@ h_index_wos <- df_wos %>%
   pull(h_index)
 
 #### Importing and Tidying Scopus Data ####
-df_scopus <- read_latest_csv(here('raw_data'), "scopus\\.csv$", header = TRUE)
+df_scopus <- read_csv(here('raw_data', 'scopus.csv'))
 
 df_scopus <- df_scopus[,c(1,13,14,16,17)]
 
@@ -87,16 +80,16 @@ df_all <- df_all %>% filter(year %in% desired_period)
 df_papers <- df_papers %>% filter(year %in% desired_period)
 
 #### Plotting ####
-source(here('plotting_sci_output.R'))
+source(here('R', 'plotting_sci_output.R'))
 
 #### GG Text Tables ####
-source(here('sum_tb_scimago_quartile.R'))
-source(here('sum_tb_capes_qualis.R'))
+source(here('R', 'sum_tb_scimago_quartile.R'))
+source(here('R', 'sum_tb_capes_qualis.R'))
 
 #### Wordclouds ####
-source(here('wordcloud_authors.R'))
-source(here('wordcloud_keywords.R'))
-source(here('wordcloud_indexed_keywords.R'))
+source(here('R', 'wordcloud_authors.R'))
+source(here('R', 'wordcloud_keywords.R'))
+source(here('R', 'wordcloud_indexed_keywords.R'))
 
 #### Final Summary Table ####
 total_publications <- df_all %>% nrow()
