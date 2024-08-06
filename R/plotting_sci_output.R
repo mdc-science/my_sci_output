@@ -511,13 +511,13 @@ if (!dir.exists('plot')) {
 }
 
 
-ggsave(file = here('plot', paste(format(Sys.Date(), "%Y.%m.%d"), "sci_output_a.png", sep = '_')), 
+ggsave(file = here('plot', paste0(format(Sys.Date(), "%Y.%m.%d"), '_', period_min, '-', period_max, "_sci_output_a.png")), 
        all_figs_a, width = 40, height = 30, units = "cm")
 
-ggsave(file = here('plot', paste(format(Sys.Date(), "%Y.%m.%d"), "sci_output_b.png", sep = '_')), 
+ggsave(file = here('plot', paste0(format(Sys.Date(), "%Y.%m.%d"), '_', period_min, '-', period_max, "_sci_output_b.png")), 
        all_figs_b, width = 30, height = 30, units = "cm")
 
-ggsave(file = here('plot', paste(format(Sys.Date(), "%Y.%m.%d"), "sci_output_c.png", sep = '_')), 
+ggsave(file = here('plot', paste0(format(Sys.Date(), "%Y.%m.%d"), '_', period_min, '-', period_max, "_sci_output_c.png")), 
        all_figs_c, width = 30, height = 12, units = "cm")
 
 #### Saving all plots generated in the environment ####
@@ -527,6 +527,6 @@ plot_names <- ls(pattern = "^fig_")
 # Save each plot as a PNG
 for (plot_name in plot_names) {
   plot <- get(plot_name)
-  ggsave(here('plot', paste0(format(Sys.Date(), "%Y.%m.%d"), '_', plot_name, ".png")), plot,
+  ggsave(here('plot', paste0(format(Sys.Date(), "%Y.%m.%d"), '_', period_min, '-', period_max, '_', plot_name, ".png")), plot,
          width = 18, height = 18, units = 'cm')
 }
