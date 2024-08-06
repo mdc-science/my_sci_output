@@ -48,9 +48,9 @@ df_scopus <- df_scopus[,c(1,13,14,16,17)]
 
 # Renaming cols
 colnames(df_scopus)[which(names(df_scopus) == "Authors")] <- "authors_scopus"
-colnames(df_scopus)[which(names(df_scopus) == "Author.Keywords")] <- "keywords_auth_scopus"
-colnames(df_scopus)[which(names(df_scopus) == "Index.Keywords")] <- "keywords_scopus"
-colnames(df_scopus)[which(names(df_scopus) == "Cited.by")] <- "citations_scopus"
+colnames(df_scopus)[which(names(df_scopus) == "Author Keywords")] <- "keywords_auth_scopus"
+colnames(df_scopus)[which(names(df_scopus) == "Index Keywords")] <- "keywords_scopus"
+colnames(df_scopus)[which(names(df_scopus) == "Cited by")] <- "citations_scopus"
 colnames(df_scopus)[which(names(df_scopus) == "DOI")] <- "doi"
 
 df_scopus <- df_scopus %>% mutate(doi = tolower(doi))
@@ -122,9 +122,3 @@ if (!dir.exists('table')) {
 ggsave(file = here('table', paste(format(Sys.Date(), "%Y.%m.%d"), "sum_tb.png", sep = '_')), 
        tb_sumtable, bg = "white", 
        height = 5, width = 10, units = "cm", dpi = 600)
-
-#### Cleaning up ####
-pacman::p_unload(all) # Unloads packages
-rm(list = ls()) # Clears the environment
-cat('\014') # Clears the console
-if(!is.null(dev.list())) dev.off() # Clears graphics
