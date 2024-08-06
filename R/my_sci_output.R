@@ -22,7 +22,7 @@ last_updated <- max(as.Date(df_local$last_updated_output, tryFormats = "%d-%m-%Y
 
 #### Importing and Tidying Web of Science Data ####
 df_wos <- read_csv(here('data', 'wos_savedrecs.csv'))
-df_wos <- df_wos[,c(2,20,21,35,57,66)]
+df_wos <- df_wos[,c("Authors", "Author Keywords", "Keywords Plus", "Times Cited, All Databases", "DOI", "Pubmed Id")]
 
 # Renaming cols
 colnames(df_wos)[which(names(df_wos) == "Authors")] <- "authors_wos"
@@ -44,7 +44,7 @@ h_index_wos <- df_wos %>%
 #### Importing and Tidying Scopus Data ####
 df_scopus <- read_csv(here('data', 'scopus.csv'))
 
-df_scopus <- df_scopus[,c(1,13,14,16,17)]
+df_scopus <- df_scopus[, c("Authors", "Author Keywords", "Index Keywords", "Cited by", "DOI")]
 
 # Renaming cols
 colnames(df_scopus)[which(names(df_scopus) == "Authors")] <- "authors_scopus"
@@ -119,6 +119,6 @@ if (!dir.exists('table')) {
   dir.create('table')
 }
 
-ggsave(file = here('table', paste(format(Sys.Date(), "%Y.%m.%d"), "sum_tb.png", sep = '_')), 
+ggsave(file = here('table', paste0(format(Sys.Date(), "%Y.%m.%d"), '_', period_min, '-', period_max, "_sum_tb.png")), 
        tb_sumtable, bg = "white", 
        height = 5, width = 10, units = "cm", dpi = 600)
