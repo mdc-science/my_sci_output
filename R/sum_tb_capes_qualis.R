@@ -46,6 +46,6 @@ if (!dir.exists('table')) {
     dir.create('table')
 }
 
-ggsave(file = here('table', paste(format(Sys.Date(), "%Y.%m.%d"), "sum_tb_capes_qualis.png", sep = '_')), 
+ggsave(file = here('table', paste0(format(Sys.Date(), "%Y.%m.%d"), '_', period_min, '-', period_max, "_sum_tb_capes_qualis.png")), 
        tb_table2, bg = "white", 
        height = 27, width = 16, units = "cm", dpi = 600)
