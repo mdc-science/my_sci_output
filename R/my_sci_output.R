@@ -8,8 +8,8 @@ source(here('utils', 'getting_h-index_google_scholar.R'))
 h_index_scholar <- get_h_index_google("https://scholar.google.com/citations?user=4MTUwDgAAAAJ")
 
 #### Importing local data into the environment ####
-df_papers <- read_csv(here('raw_data', 'sci_outuput_database.csv'))
-df_journals <- read_csv(here('raw_data', 'journal_rankings.csv'))
+df_papers <- read_csv(here('data', 'sci_outuput_database.csv'))
+df_journals <- read_csv(here('data', 'journal_rankings.csv'))
 
 # Merging dataframes
 df_local <- merge(df_papers, df_journals, by = c("journal_abbr", 'journal'), all.x = T)
@@ -21,7 +21,7 @@ last_updated <- max(as.Date(df_local$last_updated_output, tryFormats = "%d-%m-%Y
                     na.rm = TRUE)
 
 #### Importing and Tidying Web of Science Data ####
-df_wos <- read_excel(here('raw_data', 'wos_savedrecs.xls'))
+df_wos <- read_csv(here('data', 'wos_savedrecs.csv'))
 df_wos <- df_wos[,c(2,20,21,35,57,66)]
 
 # Renaming cols
@@ -42,7 +42,7 @@ h_index_wos <- df_wos %>%
   pull(h_index)
 
 #### Importing and Tidying Scopus Data ####
-df_scopus <- read_csv(here('raw_data', 'scopus.csv'))
+df_scopus <- read_csv(here('data', 'scopus.csv'))
 
 df_scopus <- df_scopus[,c(1,13,14,16,17)]
 
