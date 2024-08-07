@@ -71,7 +71,7 @@ df_all <- df_all %>%
   mutate(across(everything(), ~ifelse(. == "", NA, .)))
 
 #### Setting year cutoff if needed ####
-period_min <- 2021
+period_min <- 2012
 period_max <- 2024
 desired_period <- seq(period_min, period_max, by = 1)
 
