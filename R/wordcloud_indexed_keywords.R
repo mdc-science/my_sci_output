@@ -1,5 +1,6 @@
 library(wordcloud)
 library(textstem)
+library(magick)
 
 #### Word Cloud - Keywords ####
 max_count <- df_all %>%
@@ -35,12 +36,19 @@ if (!dir.exists('wordcloud')) {
   dir.create('wordcloud')
 }
 
-png(here('wordcloud', paste0(format(Sys.Date(), "%Y.%m.%d"), "_indexed_words_cloud.png")), 
-    width = 28, height = 20, units = 'cm', res = 600)
+# Save the word cloud to a temporary file
+temp_file <- tempfile(fileext = ".png")
 
+png(temp_file, width = 28, height = 20, units = 'cm', res = 600)
 wordcloud(words = dt_keywords$word, freq = dt_keywords$freq, min.freq = 5,
           max.words = 150, random.order = FALSE, rot.per = 0, scale = c(4, 0.4),
           colors = brewer.pal(6, cloud_color))
-
-# Close the graphics device
 dev.off()
+
+# Load the saved word cloud image with magick and trim the whitespace
+trimmed_image <- image_read(temp_file) %>%
+  image_trim()
+
+# Save the trimmed image to the desired output location
+output_file <- here('wordcloud', paste0(format(Sys.Date(), "%Y.%m.%d"), "_indexed_words_cloud.png"))
+image_write(trimmed_image, path = output_file)
