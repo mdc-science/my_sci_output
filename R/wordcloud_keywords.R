@@ -40,7 +40,7 @@ png(here('wordcloud', paste0(format(Sys.Date(), "%Y.%m.%d"), "_keywords_cloud.pn
 
 wordcloud(words = dt_keywords$word, freq = dt_keywords$freq, min.freq = 2,
           max.words = 150, random.order = FALSE, rot.per = 0, scale = c(4, 0.4),
-          colors = brewer.pal(6, "Blues"))
+          colors = brewer.pal(6, cloud_color))
 
 # Close the graphics device
 dev.off()
