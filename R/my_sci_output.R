@@ -89,7 +89,7 @@ source(here('R', 'sum_tb_capes_qualis.R'))
 #### Wordclouds ####
 source(here('R', 'wordcloud_authors.R'))
 
-cloud_color <- "Greens"
+cloud_color <- "Blues"
 source(here('R', 'wordcloud_keywords.R'))
 source(here('R', 'wordcloud_indexed_keywords.R'))
 
