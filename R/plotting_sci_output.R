@@ -57,7 +57,7 @@ fig_cumdocs <-
 # Plot 
 fig_authpos <- 
   ggplot(df_papers, aes(x = my_position, fill = first_auth)) + 
-  geom_hline(yintercept = seq(0, 20, by = 1), linetype = "dashed", color = "gray", alpha = 0.5) + 
+  geom_hline(yintercept = seq(0, 18, by = 1), linetype = "dashed", color = "gray", alpha = 0.5) + 
   geom_bar(color = "black") +
   scale_fill_manual(labels = c("First author", "Shared 1st authorship", "Other position"), 
                     values = c("First_shared" = "#4292c6", "First" = "#ef3b2c"), 
@@ -65,8 +65,8 @@ fig_authpos <-
   labs(title = "Published documents - Author position",
        subtitle = paste0("Period: ", period_min,"-", period_max, " (updated on ", last_updated, ")"),
        fill = "") +
-  scale_x_continuous(breaks = seq(1, 16, by = 1)) +
-  scale_y_continuous(limits = c(0, 20), breaks = seq(0, 20, by = 4)) +
+  scale_x_continuous(breaks = seq(1, 18, by = 1)) +
+  scale_y_continuous(limits = c(0, 18), breaks = seq(0, 18, by = 3)) +
   xlab("Authorship position (Moreira, DC)") +
   ylab("Documents") + 
   theme_few() + 
@@ -88,26 +88,26 @@ fig_authpos <-
 #### Impact factor over the years - Colored by authorship####
 # Plot
 fig_if <- 
-  ggplot(df_all, aes(x = year, y = if_2022_jcr))+
-  geom_hline(yintercept = mean(df_all$if_2022_jcr, na.rm = T), linetype = "dashed") +
+  ggplot(df_all, aes(x = year, y = if_2023_jcr))+
+  geom_hline(yintercept = mean(df_all$if_2023_jcr, na.rm = T), linetype = "dashed") +
   geom_bar(aes(group = year), stat = "summary", fun = mean, fill = "ivory", color = "black") +
-  geom_text(aes(label = paste0("Mean = ", round(mean(if_2022_jcr, na.rm = T), digits = 2)), 
-                x = min(year), y = mean(if_2022_jcr, na.rm = T)*1.1),
+  geom_text(aes(label = paste0("Mean = ", round(mean(if_2023_jcr, na.rm = T), digits = 2)), 
+                x = min(year), y = mean(if_2023_jcr, na.rm = T)*1.1),
             check_overlap = T) + 
   geom_jitter(aes(color = first_auth), alpha = 0.75) + 
   scale_color_manual(labels = c("First author", "Shared 1st authorship", "3"), 
                      values = c("First_shared" = "#4292c6", "First" = "#ef3b2c"), 
                      na.value = "gray15") + 
-  geom_text_repel(data = subset(df_all, if_2022_jcr > 6.5 | if_2022_jcr < 1), 
+  geom_text_repel(data = subset(df_all, if_2023_jcr > 5.9 | if_2023_jcr < 1), 
                   aes(label = journal_abbr)) + 
   scale_x_continuous(limits = c(period_min-0.5, period_max+0.5), breaks = seq(period_min, period_max, by = 1)) + 
-  scale_y_continuous(limits = c(0, round_any(max(df_all$if_2022_jcr, na.rm = T), 2, f = ceiling)),
-                     breaks = seq(0, round_any(max(df_all$if_2022_jcr, na.rm = T), 2, f = ceiling), length.out = 5)) +
+  scale_y_continuous(limits = c(0, round_any(max(df_all$if_2023_jcr, na.rm = T), 2, f = ceiling)),
+                     breaks = seq(0, round_any(max(df_all$if_2023_jcr, na.rm = T), 2, f = ceiling), length.out = 5)) +
   labs(title = "Published documents - Journal Impact Factor",
        subtitle = paste0("Period: ", period_min,"-", period_max, " (updated on ", last_updated, ")"),
        fill = "") +
   xlab("Year") +
-  ylab("Journal Impact Factor (JCR, 2022)") + 
+  ylab("Journal Impact Factor (JCR, 2023)") + 
   theme_few() + 
   theme(legend.position = "none",
         legend.background = element_rect(fill = "transparent"),
@@ -257,19 +257,19 @@ fig_qualis <-
 
 #### Number of publications in per Scimago Quartile ####
 # Tidying data
-dt_quartile <- count(df_all, quartile_2022)
-dt_quartile <- arrange(dt_quartile, quartile_2022)
+dt_quartile <- count(df_all, quartile_2023)
+dt_quartile <- arrange(dt_quartile, quartile_2023)
 dt_quartile <- dt_quartile %>% mutate(fill_map = as.factor(row_number()))
 
 # Plot
 fig_quartile <- 
-  ggplot(dt_quartile, aes(x = quartile_2022, y = n, fill = fill_map)) + 
+  ggplot(dt_quartile, aes(x = quartile_2023, y = n, fill = fill_map)) + 
   geom_col(color = "gray25") +
   geom_text(aes(label = n), nudge_y = 1.5) +
   scale_fill_brewer(palette = "Spectral") +
   labs(title = "Published documents - SJR, SCImago",
        subtitle = paste0("Period: ", period_min,"-", period_max, " (updated on ", last_updated, ")")) +
-  xlab("Quartile (2022 evaluation)") +
+  xlab("Quartile (2023 evaluation)") +
   ylab("Documents") + 
   theme_few() + 
   theme(legend.position = "none",
@@ -297,7 +297,7 @@ fig_alldocs_journal <-
   geom_vline(xintercept = seq(1, max(dt_journal$n, na.rm = T) + 2, by = 1), linetype = "dashed", color = "gray", alpha = 0.5) + 
   geom_col(color = "gray25") +
   scale_fill_gradient(low = "ivory", high = "#4292c6") + 
-  geom_text(aes(label = format(if_2022_jcr, nsmall = 2)), nudge_x = 0.5) +
+  geom_text(aes(label = format(if_2023_jcr, nsmall = 2)), nudge_x = 0.5) +
   labs(title = "Published documents - Journal",
        subtitle = paste0("Period: ", period_min,"-", period_max,        " (updated on ", last_updated, ")")) +
   xlab("Documents") +
@@ -512,7 +512,7 @@ if (!dir.exists('plot')) {
 
 
 ggsave(file = here('plot', paste0(format(Sys.Date(), "%Y.%m.%d"), '_', period_min, '-', period_max, "_sci_output_a.png")), 
-       all_figs_a, width = 40, height = 30, units = "cm")
+       all_figs_a, width = 40, height = 35, units = "cm")
 
 ggsave(file = here('plot', paste0(format(Sys.Date(), "%Y.%m.%d"), '_', period_min, '-', period_max, "_sci_output_b.png")), 
        all_figs_b, width = 30, height = 30, units = "cm")
