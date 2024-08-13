@@ -4,7 +4,7 @@ This repository is dedicated to managing and analyzing my scientific output. It 
 
 ## Features
 
-**Currently working almost exclusively with manually gathered data saved in CSV files.**
+**Currently working with manually gathered data stored in CSV files. Optimizing code and reducing clutter is in progress.**
 
 - **Data Import and Processing**: The scripts load data from local CSV files and external sources (e.g., Google Scholar) to maintain an up-to-date record of my scientific output.
 
@@ -23,7 +23,7 @@ This repository is dedicated to managing and analyzing my scientific output. It 
 This project uses the following R packages:
 
 ```r
-ggpubr, ggrepel, ggsci, here, lubridate, magick, pacman, RColorBrewer, readr, rvest, textstem, tidyverse, wordcloud
+data.table, ggpmisc, ggpubr, ggrepel, ggsci, ggthemes, here, lubridate, plyr, RColorBrewer, readr, tidyverse
 ```
 
 Make sure to install these packages before running the scripts.
@@ -48,7 +48,7 @@ Make sure to install these packages before running the scripts.
    - Examples of visualizations include the number of publications per year, cumulative publications, authorship position, and journal impact factors.
 
 3. **Output**:
-   - The generated plots and tables are saved in the `plot/` and `table/` directories, respectively, with file names including the date of generation and the period covered by the data.
+   - The generated plots and tables are saved in the `plot/`, `table/` and `wordcloud/` directories, respectively, with file names including the date of generation and the period covered by the data.
   
 ## Contributing
 
