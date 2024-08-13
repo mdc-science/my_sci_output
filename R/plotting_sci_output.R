@@ -402,12 +402,12 @@ df_all <- df_all %>%
 # Plot
 fig_citationsyr_wos <- 
   ggplot(subset(df_all, cites_per_yr_wos > 0), aes(x = cites_per_yr_wos, y = reorder(title_trunc, 1/cites_per_yr_wos))) + 
-  geom_vline(xintercept = seq(0, round_any(max(df_all$cites_per_yr_wos, na.rm = T), 5, f = ceiling), by = 2), 
+  geom_vline(xintercept = seq(0, round_any(max(df_all$cites_per_yr_wos, na.rm = T), 25, f = ceiling), by = 2), 
              linetype = "dashed", color = "gray", alpha = 0.5) + 
   geom_col(aes(fill = cites_per_yr_wos), color = "gray25") +
   scale_fill_gradient(low = "ivory", high = "#6a51a3") +
-  scale_x_continuous(limits = c(0, round_any(max(df_all$cites_per_yr_wos, na.rm = T), 5, f = ceiling)), 
-                     breaks = seq(0, round_any(max(df_all$cites_per_yr_wos, na.rm = T), 5, f = ceiling), length.out = 5)) +
+  scale_x_continuous(limits = c(0, round_any(max(df_all$cites_per_yr_wos, na.rm = T), 25, f = ceiling)), 
+                     breaks = seq(0, round_any(max(df_all$cites_per_yr_wos, na.rm = T), 25, f = ceiling), length.out = 5)) +
   geom_text(aes(label = round(cites_per_yr_wos, digits = 1)), nudge_x = 1) +
   labs(title = "Average citations per year - Web of Science",
        subtitle = paste0("Updated on ", last_updated)) +
@@ -467,12 +467,12 @@ df_all <- df_all %>%
 # Plot
 fig_citationsyr_scopus <- 
   ggplot(subset(df_all, cites_per_yr_scopus > 0), aes(x = cites_per_yr_scopus, y = reorder(title_trunc, 1/cites_per_yr_scopus))) + 
-  geom_vline(xintercept = seq(0, round_any(max(df_all$cites_per_yr_scopus, na.rm = T), 5, f = ceiling), by = 2), 
+  geom_vline(xintercept = seq(0, round_any(max(df_all$cites_per_yr_scopus, na.rm = T), 25, f = ceiling), by = 2), 
              linetype = "dashed", color = "gray", alpha = 0.5) + 
   geom_col(aes(fill = cites_per_yr_scopus), color = "gray25") +
-  scale_fill_gradient(low = "ivory", high = "#6a51a3") +
-  scale_x_continuous(limits = c(0, round_any(max(df_all$cites_per_yr_scopus, na.rm = T), 5, f = ceiling)), 
-                     breaks = seq(0, round_any(max(df_all$cites_per_yr_scopus, na.rm = T), 5, f = ceiling), length.out = 5)) +
+  scale_fill_gradient(low = "ivory", high = "#f16913") +
+  scale_x_continuous(limits = c(0, round_any(max(df_all$cites_per_yr_scopus, na.rm = T), 25, f = ceiling)), 
+                     breaks = seq(0, round_any(max(df_all$cites_per_yr_scopus, na.rm = T), 25, f = ceiling), length.out = 5)) +
   geom_text(aes(label = round(cites_per_yr_scopus, digits = 1)), nudge_x = 1) +
   labs(title = "Average citations per year - Scopus",
        subtitle = paste0("Updated on ", last_updated)) +

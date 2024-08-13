@@ -1,5 +1,5 @@
 #### Loading packages ####
-pacman::p_load(plyr, ggthemes, tidyverse, here, readxl, ggsci, ggpmisc, ggforce, scales, lubridate, ggrepel, ggpubr)
+pacman::p_load(here, readr, tidyverse, ggpubr, ggrepel, ggsci, lubridate, RColorBrewer)
 
 #### Defining function to read the latest version of a .CSV file ####
 source(here('utils', 'getting_h-index_google_scholar.R'))
