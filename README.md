@@ -35,6 +35,7 @@ Make sure to install these packages before running the scripts.
 - `utils/`: Contains utility scripts, such as the one for retrieving the h-index from Google Scholar (`getting_h-index_google_scholar.R`).
 - `plot/`: Stores the generated plots in PNG format.
 - `table/`: Stores the generated tables in PNG format.
+- `wordcloud/`: Stores the generated wordclouds in PNG format.
 
 ## Usage
 
