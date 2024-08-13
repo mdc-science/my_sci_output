@@ -23,7 +23,7 @@ This repository is dedicated to managing and analyzing my scientific output. It 
 This project uses the following R packages:
 
 ```r
-pacman::p_load(plyr, ggthemes, tidyverse, here, readxl, ggsci, ggpmisc, ggforce, scales, lubridate, ggrepel, ggpubr)
+ggpubr, ggrepel, ggsci, here, lubridate, magick, pacman, RColorBrewer, readr, rvest, textstem, tidyverse, wordcloud
 ```
 
 Make sure to install these packages before running the scripts.
