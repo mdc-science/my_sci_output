@@ -1,7 +1,7 @@
 DOIs for Web of Science Search
 
 Search for these objects, then ‘Export’, then ‘Excel’, then ‘Full Record’
-Download and then save as .csv
+Download and then save as .csv  
 
 
 DO=(10.3390/ddc3020021 OR 

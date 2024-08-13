@@ -3,6 +3,10 @@
 .RData
 .Ruserdata
 .DS_Store
+
+wos_search_query.txt
+README.html
+
 plot/
 table/
 wordcloud/
