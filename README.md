@@ -1,4 +1,4 @@
-# Scientific Output Management and Analysis
+# Scientific Output Analysis and Visualization
 
 This repository is dedicated to managing and analyzing my scientific output. It includes various R scripts that process data stored in CSV files, calculate metrics, and generate data visualizations related to my publications.
 
