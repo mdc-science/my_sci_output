@@ -1,18 +1,18 @@
 #### Table with Qualis information ####
 df_table2 <- 
   df_all %>% 
-  select(journal_abbr, if_2022_jcr, qualis_2017_2020) %>%
-  group_by(journal_abbr, if_2022_jcr, qualis_2017_2020) %>%
+  select(journal_abbr, if_2023_jcr, qualis_2017_2020) %>%
+  group_by(journal_abbr, if_2023_jcr, qualis_2017_2020) %>%
   summarize(papers = n()) %>% 
-  arrange(desc(if_2022_jcr), qualis_2017_2020) %>%
-  select(journal_abbr, papers, if_2022_jcr, qualis_2017_2020) %>%
-  rename(Journal = journal_abbr, Documents = papers, IF = if_2022_jcr,
+  arrange(desc(if_2023_jcr), qualis_2017_2020) %>%
+  select(journal_abbr, papers, if_2023_jcr, qualis_2017_2020) %>%
+  rename(Journal = journal_abbr, Documents = papers, 'IF (2023)' = if_2023_jcr,
          'Qualis (2017-2020)' = qualis_2017_2020)  
 
 table2_theme <- 
   ttheme(tbody.style = tbody_style(color = "black", fill = c("#fff5f0", "#fee0d2"),
                                    hjust = as.vector(matrix(c(0, 1, 1, 1), ncol = 4, nrow = nrow(df_table2), byrow = TRUE)),
-                                   x = as.vector(matrix(c(.02, .55, .9,.55), ncol = 4, nrow = nrow(df_table2), byrow = TRUE))),
+                                   x = as.vector(matrix(c(.02, .55, .65,.55), ncol = 4, nrow = nrow(df_table2), byrow = TRUE))),
          colnames.style = colnames_style(color = "gray95", fill = "#a50f15"))
 
 tb_table2 <- ggtexttable(df_table2, rows = NULL, theme = table2_theme)
@@ -48,4 +48,4 @@ if (!dir.exists('table')) {
 
 ggsave(file = here('table', paste0(format(Sys.Date(), "%Y.%m.%d"), '_', period_min, '-', period_max, "_sum_tb_capes_qualis.png")), 
        tb_table2, bg = "white", 
-       height = 27, width = 16, units = "cm", dpi = 600)
+       height = 30, width = 16, units = "cm", dpi = 600)
