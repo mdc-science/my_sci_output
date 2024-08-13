@@ -1,4 +1,5 @@
 library(wordcloud)
+library(magick)
 
 #### Word Cloud - Authors ####
 df_authors <- df_all %>% 
@@ -25,7 +26,9 @@ if (!dir.exists('wordcloud')) {
   dir.create('wordcloud')
 }
 
-png(here('wordcloud', paste0(format(Sys.Date(), "%Y.%m.%d"), "_authors_cloud.png")), 
+output_path <- here('wordcloud', paste0(format(Sys.Date(), "%Y.%m.%d"), "_authors_cloud.png"))
+
+png(output_path, 
     width = 20, height = 18, units = 'cm', res = 300)
 
 wordcloud(words = dt_names$word, freq = dt_names$freq, min.freq = 2,
@@ -34,3 +37,10 @@ wordcloud(words = dt_names$word, freq = dt_names$freq, min.freq = 2,
 
 # Close the graphics device
 dev.off()
+
+# Read the image and trim the margins
+image <- image_read(output_path)
+image_trimmed <- image_trim(image)
+
+# Save the trimmed image
+image_write(image_trimmed, output_path)
