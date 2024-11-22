@@ -129,11 +129,18 @@ dt_publisher <- count(df_all, publisher) %>%
   mutate(fill_map = as.factor(row_number()))
 
 # Plot
+# Use the code below to (i) count the number of grouping vars, 
+# (ii) select the range from which to draw colors, and
+# (iii) get the number of colors necessary within the range of colors
+color_count <-  length(unique(na.omit(dt_publisher$publisher))) # Counts the number of grouping vars
+get_palette <- colorRampPalette(brewer.pal(9, "Spectral")) # Defines the range from which to generate colors
+get_palette(color_count) # Generates the colors 
+
 fig_alldocs_publisher <-
   ggplot(dt_publisher, aes(x = reorder(publisher, 1 / n), y = n, fill = fill_map)) +
   geom_col(color = "gray25") +
   geom_text(aes(label = n), nudge_y = 0.75) +
-  scale_fill_brewer(palette = "Spectral") +
+  scale_fill_manual(values = get_palette(color_count)) +
   labs(
     title = "Published documents - Publisher",
     subtitle = paste0(
@@ -253,7 +260,8 @@ dt_journal <- count(df_all, journal_abbr) %>%
 
 # Plot
 fig_alldocs_journal <-
-  ggplot(dt_journal, aes(y = reorder(journal_abbr, 1 / n), x = n, fill = n)) +
+  ggplot(dt_journal, aes(y = fct_reorder(journal_abbr, 1 / n, .desc = T) %>% fct_inorder(), 
+                         x = n, fill = n)) +
   geom_vline(xintercept = seq(1, max(dt_journal$n, na.rm = T) + 2, by = 1), linetype = "dashed", color = "gray", alpha = 0.5) +
   geom_col(color = "gray25") +
   scale_fill_gradient(low = "ivory", high = "#4292c6") +
@@ -311,12 +319,12 @@ fig_corrauth <-
 # Plot
 fig_citations_wos <-
   ggplot(subset(df_all, citations_wos > 0), aes(x = citations_wos, y = reorder(title_trunc, 1 / citations_wos))) +
-  geom_vline(xintercept = seq(0, round_any(max(df_all$citations_wos, na.rm = T), 10, f = ceiling), by = 10), linetype = "dashed", color = "gray", alpha = 0.5) +
+  geom_vline(xintercept = seq(0, round_any(max(df_all$citations_wos, na.rm = T), 100, f = ceiling), by = 20), linetype = "dashed", color = "gray", alpha = 0.5) +
   geom_col(aes(fill = citations_wos), color = "gray25") +
   scale_fill_gradient(low = "ivory", high = "#6a51a3") +
   scale_x_continuous(
-    limits = c(0, round_any(max(df_all$citations_wos, na.rm = T), 10, f = ceiling)),
-    breaks = seq(0, round_any(max(df_all$citations_wos, na.rm = T), 10, f = ceiling), length.out = 5)
+    limits = c(0, round_any(max(df_all$citations_wos, na.rm = T), 100, f = ceiling)),
+    breaks = seq(0, round_any(max(df_all$citations_wos, na.rm = T), 100, f = ceiling), length.out = 5)
   ) +
   geom_text(aes(label = citations_wos), nudge_x = max(df_all$citations_wos, na.rm = T) / 100, hjust = 0) +
   geom_vline(xintercept = h_index_wos, color = "#3f007d", linetype = "dashed", linewidth = 0.25) +
@@ -363,14 +371,14 @@ fig_citationsyr_wos <-
 fig_citations_scopus <-
   ggplot(subset(df_all, citations_scopus > 0), aes(x = citations_scopus, y = reorder(title_trunc, 1 / citations_scopus))) +
   geom_vline(
-    xintercept = seq(0, round_any(max(df_all$citations_scopus, na.rm = T), 20, f = ceiling), by = 10),
+    xintercept = seq(0, round_any(max(df_all$citations_scopus, na.rm = T), 100, f = ceiling), by = 20),
     linetype = "dashed", color = "gray", alpha = 0.5
   ) +
   geom_col(aes(fill = citations_scopus), color = "gray25") +
   scale_fill_gradient(low = "ivory", high = "#f16913") +
   scale_x_continuous(
-    limits = c(0, round_any(max(df_all$citations_scopus, na.rm = T), 20, f = ceiling)),
-    breaks = seq(0, round_any(max(df_all$citations_scopus, na.rm = T), 20, f = ceiling), length.out = 5)
+    limits = c(0, round_any(max(df_all$citations_scopus, na.rm = T), 100, f = ceiling)),
+    breaks = seq(0, round_any(max(df_all$citations_scopus, na.rm = T), 100, f = ceiling), length.out = 5)
   ) +
   geom_text(aes(label = citations_scopus), nudge_x = max(df_all$citations_scopus, na.rm = T) / 100, hjust = 0) +
   geom_vline(xintercept = h_index_scopus, color = "#7f2704", linetype = "dashed", linewidth = 0.25) +
