@@ -56,3 +56,27 @@ trimmed_image <- image_read(temp_file) %>%
 # Save the trimmed image to the desired output location
 output_file <- here("wordcloud", paste0(format(Sys.Date(), "%Y.%m.%d"), "_keywords_cloud.png"))
 image_write(trimmed_image, path = output_file)
+
+
+# Save the word cloud to a temporary file
+temp_file <- tempfile(fileext = ".pdf")
+
+# Open the PDF device
+pdf(temp_file, width = 28/2.54, height = 20/2.54)  # Convert cm to inches
+
+# Generate the word cloud
+wordcloud(
+  words = dt_keywords$word, freq = dt_keywords$freq, min.freq = 2,
+  max.words = 150, random.order = FALSE, rot.per = 0, scale = c(4, 0.4),
+  colors = brewer.pal(6, cloud_color)
+)
+
+# Close the PDF device
+dev.off()
+
+# Save the trimmed image to the desired output location
+output_file <- here("wordcloud", paste0(format(Sys.Date(), "%Y.%m.%d"), "_keywords_cloud.pdf"))
+
+# Move the file to the desired location
+file.rename(temp_file, output_file)
+
