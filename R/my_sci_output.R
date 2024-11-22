@@ -11,6 +11,7 @@ library(ggrepel)
 library(ggsci)
 library(lubridate)
 library(RColorBrewer)
+library(forcats)
 
 #### Defining function to read the latest version of a .CSV file ####
 source(here("utils", "getting_h-index_google_scholar.R"))
