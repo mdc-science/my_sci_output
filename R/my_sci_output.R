@@ -63,7 +63,7 @@ h_index_wos <- df_wos %>%
   pull(h_index)
 
 # Manually setting h-index
-h_index_wos <- 14
+# h_index_wos <- 14
 
 #### Importing and Tidying Scopus Data ####
 df_scopus <- fread(here("data", "scopus.csv"))
@@ -81,7 +81,7 @@ h_index_scopus <- df_scopus %>%
   pull(h_index)
 
 # Manually setting h-index
-h_index_scopus <- 14
+# h_index_scopus <- 14
 
 #### Merging all data into a single dataframe and creating the truncated title col ####
 df_all <- df_local %>%
