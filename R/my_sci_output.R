@@ -81,7 +81,7 @@ h_index_scopus <- df_scopus %>%
   pull(h_index)
 
 # Manually setting h-index
-# h_index_scopus <- 14
+h_index_scopus <- 15
 
 #### Merging all data into a single dataframe and creating the truncated title col ####
 df_all <- df_local %>%
@@ -92,7 +92,7 @@ df_all <- df_local %>%
 
 #### Setting year cutoff if needed ####
 period_min <- 2012
-period_max <- 2024
+period_max <- 2025
 desired_period <- seq(period_min, period_max, by = 1)
 
 # Filtering for the selected period
