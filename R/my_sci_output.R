@@ -63,7 +63,7 @@ h_index_wos <- df_wos %>%
   pull(h_index)
 
 # Manually setting h-index
-# h_index_wos <- 14
+h_index_wos <- 15
 
 #### Importing and Tidying Scopus Data ####
 df_scopus <- fread(here("data", "scopus.csv"))

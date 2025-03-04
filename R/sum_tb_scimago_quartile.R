@@ -60,5 +60,5 @@ write_csv(df_table1, here("table", paste0(format(Sys.Date(), "%Y.%m.%d"), "_", p
 ggsave(
   file = here("table", paste0(format(Sys.Date(), "%Y.%m.%d"), "_", period_min, "-", period_max, "_sum_tb_scimago_quartile.png")),
   tb_table1, bg = "white",
-  height = 30, width = 23, units = "cm", dpi = 600
+  height = 32, width = 23, units = "cm", dpi = 600
 )
