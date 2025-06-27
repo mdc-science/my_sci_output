@@ -37,6 +37,11 @@ h_index_scholar <- get_h_index_google("https://scholar.google.com/citations?user
 #### Importing data into the environment ####
 df_papers <- fread(here("data", "sci_outuput_database.csv"))
 df_journals <- fread(here("data", "journal_rankings.csv"))
+df_clarivate <- fread(here("data", "journal_citations_report_2024.csv"),
+                      skip = 2,
+                      fill=TRUE)
+# Drop the last 3 rows
+df_clarivate <- df_clarivate[1:(.N - 3)]
 
 # Merging dataframes
 df_local <- df_papers %>%
@@ -81,7 +86,7 @@ h_index_scopus <- df_scopus %>%
   pull(h_index)
 
 # Manually setting h-index
-h_index_scopus <- 15
+h_index_scopus <- 16
 
 #### Merging all data into a single dataframe and creating the truncated title col ####
 df_all <- df_local %>%
